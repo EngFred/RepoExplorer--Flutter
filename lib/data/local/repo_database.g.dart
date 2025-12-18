@@ -657,6 +657,7 @@ abstract class _$RepoDatabase extends GeneratedDatabase {
   _$RepoDatabase(QueryExecutor e) : super(e);
   $RepoDatabaseManager get managers => $RepoDatabaseManager(this);
   late final $RepoTableTable repoTable = $RepoTableTable(this);
+  late final RepoDao repoDao = RepoDao(this as RepoDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

@@ -56,8 +56,10 @@ class SearchScreen extends ConsumerWidget {
                           );
                           return RepoItem(
                             repo: displayRepo,
-                            onItemClick: (_) =>
-                                context.push('/details/${repo.id}'),
+                            onItemClick: (_) {
+                              FocusScope.of(context).unfocus();
+                              context.push('/details/${repo.id}');
+                            },
                             onFavoriteClick: notifier.toggleFavorite,
                           );
                         },

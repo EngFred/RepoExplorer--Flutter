@@ -13,6 +13,7 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../data/local/repo_dao.dart' as _i715;
 import '../data/local/repo_database.dart' as _i676;
 import '../data/remote/github_api.dart' as _i555;
 import '../data/repository/repo_repository_impl.dart' as _i1018;
@@ -33,11 +34,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i676.RepoDatabase>(() => _i676.RepoDatabase());
     gh.singleton<_i361.Dio>(() => networkModule.dio);
     gh.singleton<_i555.GithubApi>(() => _i555.GithubApi(gh<_i361.Dio>()));
+    gh.lazySingleton<_i715.RepoDao>(
+      () => _i715.RepoDao(gh<_i676.RepoDatabase>()),
+    );
     gh.factory<_i772.RepoRepository>(
-      () => _i1018.RepoRepositoryImpl(
-        gh<_i555.GithubApi>(),
-        gh<_i676.RepoDatabase>(),
-      ),
+      () =>
+          _i1018.RepoRepositoryImpl(gh<_i555.GithubApi>(), gh<_i715.RepoDao>()),
     );
     gh.factory<_i31.GetFavoritesUseCase>(
       () => _i31.GetFavoritesUseCase(gh<_i772.RepoRepository>()),

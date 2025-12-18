@@ -59,8 +59,12 @@ class SearchNotifier extends Notifier<String> {
     _debounceTimer?.cancel();
     _debounceTimer = Timer(_debounceDuration, () {
       if (newQuery != state) {
+        if (newQuery.isEmpty) {
+          pagingController.value = PagingState<int, Repo>(pages: [], keys: []);
+        } else {
+          pagingController.refresh();
+        }
         state = newQuery;
-        pagingController.refresh();
       }
     });
   }
