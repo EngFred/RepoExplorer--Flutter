@@ -21,7 +21,7 @@ Try the latest build on your device:
 
 | Search & Pagination | Repository Details | Favorites (Offline) |
 |:-------------------:|:------------------:|:-------------------:|
-| <img src="https://github.com/user-attachments/assets/4dfaee86-0e8b-4f6f-a75a-2833c17b1bbb" width="250" /> | <img src="https://github.com/user-attachments/assets/fba93928-9617-4b81-b2b4-63d3d7ca6723" width="250" /> | <img src="https://github.com/user-attachments/assets/6298cb28-8196-4222-be9c-eeb1ea9f3c9b" width="250" /> |
+| <img src="https://github.com/user-attachments/assets/24ee60d1-8eeb-4d5f-a837-862a969cb1df" width="250" /> | <img src="https://github.com/user-attachments/assets/0da68ea8-efa7-4d45-810a-b086539a61dd" width="250" /> | <img src="https://github.com/user-attachments/assets/bac9bbdd-291a-4b4c-8c7e-35d1b1e2af7e" width="250" /> |
 | *Infinite scrolling with Pagination* | *2x2 Stats Grid & Material 3* | *Persisted via Drift Database* |
 
 ---
