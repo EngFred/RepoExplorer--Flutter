@@ -3,16 +3,34 @@ import 'package:flutter_repoexplorer/ui/screens/details_screen.dart';
 import 'package:flutter_repoexplorer/ui/screens/favorites_screen.dart';
 import 'package:flutter_repoexplorer/ui/screens/search_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
 
-final GoRouter appRouter = GoRouter(
+final _searchNavigatorKey = GlobalKey<NavigatorState>();
+final _favoritesNavigatorKey = GlobalKey<NavigatorState>();
+
+final appRouter = GoRouter(
   routes: [
-    ShellRoute(
-      builder: (context, state, child) => _BottomBarShell(child: child),
-      routes: [
-        GoRoute(path: '/', builder: (context, state) => const SearchScreen()),
-        GoRoute(
-          path: '/favorites',
-          builder: (context, state) => const FavoritesScreen(),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) =>
+          _BottomBarShell(navigationShell: navigationShell),
+      branches: [
+        StatefulShellBranch(
+          navigatorKey: _searchNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/',
+              builder: (context, state) => const SearchScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _favoritesNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/favorites',
+              builder: (context, state) => const FavoritesScreen(),
+            ),
+          ],
         ),
       ],
     ),
@@ -24,36 +42,38 @@ final GoRouter appRouter = GoRouter(
   ],
 );
 
-class _BottomBarShell extends StatefulWidget {
-  final Widget child;
+class _BottomBarShell extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
 
-  const _BottomBarShell({required this.child});
-
-  @override
-  State<_BottomBarShell> createState() => _BottomBarShellState();
-}
-
-class _BottomBarShellState extends State<_BottomBarShell> {
-  int _currentIndex = 0;
+  const _BottomBarShell({required this.navigationShell});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.child,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          setState(() => _currentIndex = index);
-          if (index == 0) {
-            context.go('/');
-          } else {
-            context.go('/favorites');
-          }
-        },
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.search), label: 'Search'),
-          NavigationDestination(icon: Icon(Icons.favorite), label: 'Favorites'),
-        ],
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
+        if (navigationShell.currentIndex != 0) {
+          navigationShell.goBranch(0);
+        } else {
+          SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        body: navigationShell,
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: navigationShell.currentIndex,
+          onDestinationSelected: (index) {
+            navigationShell.goBranch(index);
+          },
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.search), label: 'Search'),
+            NavigationDestination(
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
+            ),
+          ],
+        ),
       ),
     );
   }

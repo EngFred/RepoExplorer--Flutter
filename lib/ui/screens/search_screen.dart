@@ -15,7 +15,6 @@ class SearchScreen extends ConsumerWidget {
     final query = ref.watch(searchProvider);
     final notifier = ref.watch(searchProvider.notifier);
     final pagingController = notifier.pagingController;
-    // Moved from notifier getter: Watch favorites here to avoid adding unintended dependencies to the notifier.
     final favoriteIds =
         ref.watch(favoritesProvider).value?.map((r) => r.id).toSet() ?? {};
 
