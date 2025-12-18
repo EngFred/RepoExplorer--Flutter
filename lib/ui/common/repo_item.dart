@@ -108,7 +108,6 @@ class RepoItem extends StatelessWidget {
 }
 
 String formatNumber(int count) {
-  // Fix: Use NumberFormat.compact() to safely handle 1k, 1M, etc.
   return NumberFormat.compact().format(count);
 }
 

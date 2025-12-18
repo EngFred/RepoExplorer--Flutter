@@ -83,7 +83,6 @@ class DetailsScreen extends ConsumerWidget {
               Text(
                 repo.description ?? 'No description provided.',
                 style: Theme.of(context).textTheme.bodyLarge,
-                // lineHeight not directly, use style
               ),
               const SizedBox(height: 24),
               Container(
@@ -125,7 +124,7 @@ class DetailsScreen extends ConsumerWidget {
                   onPressed: () => launchUrl(Uri.parse(repo.htmlUrl)),
                 ),
               ),
-              const SizedBox(height: 88), // To match spacer
+              const SizedBox(height: 88),
             ],
           ),
         ),

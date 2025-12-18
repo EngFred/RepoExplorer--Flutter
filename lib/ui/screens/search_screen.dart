@@ -117,7 +117,6 @@ class SearchScreen extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                        // RETRY BUTTON for Initial Load
                         firstPageErrorIndicatorBuilder: (context) => Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -148,7 +147,6 @@ class SearchScreen extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        // RETRY BUTTON for "Load More" (Infinite Scroll)
                         newPageErrorIndicatorBuilder: (context) => Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Center(
