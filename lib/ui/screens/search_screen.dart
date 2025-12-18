@@ -115,17 +115,57 @@ class SearchScreen extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                        firstPageErrorIndicatorBuilder: (context) =>
-                            const Center(
-                              child: Text(
-                                'Could not load more results',
-                                style: TextStyle(color: Color(0xFFDA3633)),
+                        // RETRY BUTTON for Initial Load
+                        firstPageErrorIndicatorBuilder: (context) => Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Something went wrong',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Could not load results. Please try again.',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                onPressed: fetchNextPage,
+                                icon: const Icon(Icons.refresh),
+                                label: const Text('Retry'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF238636),
+                                  foregroundColor: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // RETRY BUTTON for "Load More" (Infinite Scroll)
+                        newPageErrorIndicatorBuilder: (context) => Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'Could not load more results',
+                                  style: TextStyle(color: Color(0xFFDA3633)),
+                                ),
+                                TextButton.icon(
+                                  onPressed: fetchNextPage,
+                                  icon: const Icon(Icons.refresh, size: 16),
+                                  label: const Text('Try Again'),
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: const Color(0xFF58A6FF),
+                                  ),
+                                ),
+                              ],
                             ),
-                        newPageErrorIndicatorBuilder: (context) => const Center(
-                          child: Text(
-                            'Could not load more results',
-                            style: TextStyle(color: Color(0xFFDA3633)),
                           ),
                         ),
                       ),

@@ -108,10 +108,8 @@ class RepoItem extends StatelessWidget {
 }
 
 String formatNumber(int count) {
-  if (count < 1000) return count.toString();
-  final exp = (count / 1000).floor();
-  final suffix = ['k', 'M', 'G', 'T', 'P', 'E'];
-  return NumberFormat('#.#').format(count / (1000 ^ exp)) + suffix[exp - 1];
+  // Fix: Use NumberFormat.compact() to safely handle 1k, 1M, etc.
+  return NumberFormat.compact().format(count);
 }
 
 Color getLanguageColor(String language) {
